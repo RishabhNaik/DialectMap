@@ -3,54 +3,37 @@
 		<title>{{t}}</title>
 		<!-- href="/static/assets/style.css"-->
 		<link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='/css/styles.css')}}" >
+		
 	</head>
 <body>
 	<h1>{{ h }}</h1>
 	<ul>
 		<li><a href="/AdminDashboard" class="{{ a1 }}">ALL</a></li>
-		<li><a href="/accept" class="{{ a2 }}">accepted</a></li>
-		<li><a href="/forms" class="{{ a3 }}">forms</a></li>
+
+		<li><a href="/forms" class="{{ a3 }}">FORMS</a></li>
 	</ul>
 	<hr>
 	{% if todos[0] %}
 	<div span="right">
-	<!-- <form action="/search"	method="GET" >
-		<table class="none" id="close">
-		<tr>
-		<td></td><td></td>
-		<td><big><b>Search Reference:</b></big></td>
-		<td><select name="refer" required>
-			<option value="name">Task Name</option>
-			<option value="desc">Description</option>
-			<option value="date">Date</option>
-			<option value="pr">Priority</option>
-		</select></td>
-		<td><input type="text" name="key" placeholder="Search Task" size="15" /></td>
-		<td><button type="submit">Search</button></td>
-		</tr>
-		</table>
-	</form> -->
+
 	</div>
-	<b><big>To-Do LIST :</big></b>
-	<table>
+	<table >
 	    <tr id="row">
-	    	<!-- <th class="status">Status</th> -->
 	    	<th class="name">Name</th>
-	    	<th class="desc">Age</th>
+	    	<th class="desc" >Age</th>
 	    	<th class="date">Gender</th>
-	    	<th class="Pr">dialect</th>
+	    	<th class="Pr" >Dialect</th>
 		<th class="func1">Remove</th>
 		<th class="func2">Modify</th>
 	    </tr>
 	{% for todo in todos %}
 		<tr class="datas">
-			<!-- <td><a href="./done?_id={{ todo['_id'] }}"><input type="image" src="static/images/{{todo['done']}}.png" alt="Submit ME"></a></td> -->
 			<td class="name">{{ todo["properties"]["Name"] }}</td>
-			<td class="desc">{{ todo["properties"]["Age"] }}</td>
+			<td class="desc" style="width:2px">{{ todo["properties"]["Age"] }}</td>
 			<td class="date">{{ todo["properties"]["gender"] }}</td>
 			<td class="pr">{{ todo["properties"]["dailectgroup"] }}</td>
 			<td class="func1"><a href="./remove?_id={{ todo['_id'] }}"><button type="submit">DELETE</button></a></td>
-			<td class="func1"><a href="./accept?_id={{ todo['_id'] }}"><button type="submit">Accept</button></a></td>
+			<td class="func1"><a href="./update?_id={{ todo['_id'] }}"><button type="submit">EDIT</button></a></td>
 		</tr>
 	{% endfor %}
 	</table>

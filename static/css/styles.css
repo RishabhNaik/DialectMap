@@ -45,16 +45,18 @@ header {
  }
 
  table{
-	width:95%;
+	width:75%;
 	border-collapse:collapse;
-	table-layout:fixed;
+  table-layout:fixed;
+  margin-left: auto;
+  margin-right: auto;
 }
 td
 {
 	border: rgba(224, 119, 70, 1) 2px solid;
 	word-wrap:break-word;
 }
-table#close{
+/*table#close{
 
 	table-layout:default;
 	border-collapse:seperate;
@@ -71,25 +73,25 @@ table.none
 table.none td
 {
 	border: none;
-}
+}*/
 tr.row td{
 	text-decoration:italic;
 }
-th.status{
+/*th.status{
 	width:5%;
-}
+}*/
 th.name{
 	width:20%;
 }
-th.des{
-	width:20%;
-	padding:5px 5px 5px 5px;
+th.desc{
+	width:5%;
+	/*padding:5px 5px 5px 5px;*/
 }
 th.date{
 	width:8%;
 }
 th.pr{
-	width:7%;
+	width:auto;
 }
 th.func1{
 	width:6%;

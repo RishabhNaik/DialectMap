@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
     <title>Simple Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
 
      <link rel="stylesheet" type="text/css" href="static/css/styles.css">
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -17,22 +20,41 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
-    <!--    MD Bootstrap Data TAbles-->
-    <link href="css/addons/datatables2.min.css" rel="stylesheet">
+    
+    
 
 
     <!--map-->
-  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.0/mapbox-gl.css' rel='stylesheet' />
-   
-   <script src="https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js"></script>
-    <link
-      href="https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css"
-      rel="stylesheet"
-    />
+  
+
+    <!-- <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+  /> -->
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+     <!-- Load Leaflet from CDN -->
+     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+     <!-- <script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script> -->
  
+     <!-- Load Esri Leaflet from CDN -->
+     <script src="https://unpkg.com/esri-leaflet"></script>
+ 
+     <!-- Esri Leaflet Geocoder -->
+     <link
+       rel="stylesheet"
+       href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"
+     />
+     <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
+
+     
+
+    
+
 </head>
      <body>
+      <script src="static/js/java.js"></script>
+      
+      
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container">
@@ -44,7 +66,7 @@
     
     </header >
     <div id="map" class="container-fluid"></div>
-    <script src="static/js/java.js"></script>
+   
     <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula, risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent scelerisque tortor sed accumsan convallis.</div>
   <!-- Footer -->
 <footer class="page-footer font-small blue-grey lighten-5">

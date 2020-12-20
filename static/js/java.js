@@ -1,135 +1,92 @@
-L.mapbox.accessToken =
-              "pk.eyJ1IjoicmlzaGFiaG5haWsxMjMiLCJhIjoiY2tkdHoza201MjM1OTJwdHZoNHI2NDE1diJ9.Q3ePBZyDe66tWNufCrHS5w";
+var mygeojson = $.ajax({
+  url:
+    "http://127.0.0.1:5000/getdata",
+  dataType: "json",
+  success: console.log(" data successfully loaded."),
+  error: function(xhr) {
+    alert(xhr.statusText);
+  }
+});
+$.when(mygeojson).done(function() {
+  function updateHTML(locating) {
+    localStorage.setItem("location", locating);
+    // document.getElementById("loca").innerHTML = locating;
+  }
 
-            var mapboxTiles = L.tileLayer(
-              "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=" +
-                L.mapbox.accessToken,
-              {
-                attribution:
-                  '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                tileSize: 512,
-                zoomOffset: -1
-              }
-            );
+  var map = L.map("map").setView([28, 72], 4);
+  
+  //... adding data in searchLayer ...
 
+  map.doubleClickZoom.disable();
 
-            function updateHTML( locating) {
-             localStorage.setItem("location",locating);
-              // document.getElementById("loca").innerHTML = locating;
-            }
-      
+  var theMarker = {};
 
-            var map = L.map("map")
-              .addLayer(mapboxTiles)
-              .setView([28, 72], 4);
+  map.on("dblclick", function(e) {
+    lat = e.latlng.lat;
+    lon = e.latlng.lng;
 
-            map.doubleClickZoom.disable();
+    // console.log("You clicked the map at LAT: "+ lat+" and LONG: "+lon );
+    var locating = [lat, lon];
+    // document.getElementById('output').innerHTML = location;
+    updateHTML(locating);
 
-            var theMarker = {};
+    //Clear existing marker,
 
-        map.on('dblclick',function(e){
-          lat = e.latlng.lat;
-          lon = e.latlng.lng;
-
-          // console.log("You clicked the map at LAT: "+ lat+" and LONG: "+lon );
-          var locating=[lat,lon];
-          // document.getElementById('output').innerHTML = location;
-          updateHTML(locating);
-            
-      //    console.log(locating.Array)
-      //       console.log(theMarker)
-      // console.log(locating)
-              //Clear existing marker,
-
-              if (theMarker != undefined) {
-                    map.removeLayer(theMarker);
-              };
-
-          //Add a marker to show where you clicked.
-          // theMarker = L.marker([lat,lon]).addTo(map).bindPopup("<h1>This is your marker</h1><br> <form action='/forms'><button type='submit'>Click me</button></form>")
-           theMarker = L.marker([lat,lon]).addTo(map).bindPopup("<h1>This is your marker</h1><br> <form action='/forms'><button type='submit'>Click me</button></form>")
-      });
-
-    
-
-
-      var mygeojson = {
-        "type": "FeatureCollection",
-        "features": [
-          {
-            "type": "Feature",
-            "properties": {
-                "dialect": 11793,
-                "Name": "Ram",
-                },
-            "geometry": {
-              "type": "Point",
-              "coordinates": [
-                72.99316406249999,
-                18.687878686034182
-              ]
-            }
-          },
-          {
-            "type": "Feature",
-            "properties": {
-                "dialect": 11793,
-                "Name": "shyam",
-                "url":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},
-            "geometry": {
-              "type": "Point",
-              "coordinates": [
-                73.916015625,
-                15.919073517982426
-              ]
-            }
-          },
-          {
-            "type": "Feature",
-            "properties":{
-                "dialect": 11793,
-                "Name": "Babu Rao",
-                "url":""},
-            "geometry": {
-              "type": "Point",
-              "coordinates": [
-                78.22265625,
-                22.471954507739227
-              ]
-            }
-          },
-          {
-            "type": "Feature",
-            "properties": {
-                "dialect": 11793,
-                "Name": "Rishabh",
-                "url":""},
-            "geometry": {
-              "type": "Point",
-              "coordinates": [
-                75.234375,
-                14.221788628397572
-              ]
-            }
-          }
-        ]
-      }
-
-
-      function onEachFeature(feature, layer) {
-        var popupContent = "<p class='rock'>" +feature.properties.Name+ "</p>"+"<audio controls src= "+feature.properties.url+" > </audio>" ;
-
-
-        // var popupContent = "<p>" +feature.properties.Name+ "</p>" ;
-
-
-        if (feature.properties && feature.properties.popupContent) {
-            popupContent += feature.properties.popupContent;
-        }
-
-        layer.bindPopup(popupContent);
+    if (theMarker != undefined) {
+      map.removeLayer(theMarker);
     }
 
-    L.geoJson(mygeojson,{onEachFeature: onEachFeature}).addTo(map);
+    //Add a marker to show where you clicked.
+    // theMarker = L.marker([lat,lon]).addTo(map).bindPopup("<h1>This is your marker</h1><br> <form action='/forms'><button type='submit'>Click me</button></form>")
+    theMarker = L.marker([lat, lon])
+      .addTo(map)
+      .bindPopup(
+        "<h1>This is your marker</h1><br> <form action='/forms'><button type='submit'>Click me</button></form>"
+      );
+  });
+
+  function onEachFeature(properties, layer) {
+    console.log(properties.properties.Name);
+    var popupContent =
+      "<p class='rock'>" +
+      properties.properties.Name +
+      "</p>" +
+      "<audio controls src= " +
+      properties.properties.Name +
+      " > </audio>";
+    console.log(properties.properties.recording);
+
+    // var popupContent = "<p>" +feature.properties.Name+ "</p>" ;
+
+    if (properties && properties.popupContent) {
+      popupContent += properties.popupContent;
+    }
+
+    layer.bindPopup(popupContent);
+  }
+
+  var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}
+  ).addTo(map);
+  // Add requested external GeoJSON to map
+  var kyGeojson = L.geoJSON(mygeojson.responseJSON, {
+    onEachFeature: onEachFeature
+  }).addTo(map);
+var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+
+      // create an empty layer group to store the results and add it to the map
+      var results = L.layerGroup().addTo(map);
+
+      // listen for the results event and add every result to the map
+      searchControl.on("results", function (data) {
+        results.clearLayers();
+        for (var i = data.results.length - 1; i >= 0; i--) {
+          // results.addLayer(L.marker(data.results[i].latlng));
+        }
+      });
+});
 
 
+      // create the geocoding control and add it to the map
+      
